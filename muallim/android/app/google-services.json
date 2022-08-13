@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "428257817775",
+    "project_id": "muallimproject1",
+    "storage_bucket": "muallimproject1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:428257817775:android:fc9d7ea6717a2b5795905a",
+        "android_client_info": {
+          "package_name": "com.mycompany.muallim"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "428257817775-t7gobb6mat1bfcmslu1bh0hbuo2nfpq4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mycompany.muallim",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "428257817775-94r6e0kpgfbqosq9pf2ke2sloh0g2ism.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDEd3YKlBda_M7oXOl9aziJlc6LWbJWUBg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "428257817775-94r6e0kpgfbqosq9pf2ke2sloh0g2ism.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "428257817775-u5mhpj5fs21dbjd7cln03cdcv1qk61n9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mycompany.muallim"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
