@@ -1,2 +1,2 @@
 # MuallimProject
-Muallim - open source learning management platform.
+Muallim - open source learning management platform
