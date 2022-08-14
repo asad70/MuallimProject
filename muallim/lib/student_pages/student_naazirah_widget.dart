@@ -449,7 +449,7 @@ class _StudentNaazirahWidgetState extends State<StudentNaazirahWidget> {
                 border: Border.all(
                   color: Color(0xFF0000FF),),),
               child: Padding(padding: EdgeInsetsDirectional.fromSTEB(10, 5, 10, 5),
-                child: AutoSizeText(getJsonField(pageAyasItem,r'''$.text_uthmani''',).toString(),
+                child: AutoSizeText(getJsonField(pageAyasItem,r'''$.text_uthmani''').toString(),
                   textDirection: ui.TextDirection.rtl,
                   textAlign: TextAlign.start,
                   style: MuallimTheme.of(context).subtitle1.override(

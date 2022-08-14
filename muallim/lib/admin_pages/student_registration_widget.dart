@@ -6,6 +6,7 @@ import '../backend/backend.dart';
 import '../backend/schema/parents_users_record.dart';
 import '../components/add_fam_component_widget.dart';
 import '../components/add_student_component_widget.dart';
+import '../customized_actions/actions/index.dart' as actions;
 import '../components/admin_nav_bar_widget.dart';
 import '../components/update_student_component_widget.dart';
 import '../muallim/muallim_icon_button.dart';
@@ -30,7 +31,6 @@ class _StudentRegistrationWidgetState extends State<StudentRegistrationWidget> {
 
   ScrollController _controller = new ScrollController();
   ScrollController _scrollController = new ScrollController();
-
 
   DocumentReference currentFamClicked;
   String currentFamClickedName = "";
@@ -526,7 +526,6 @@ Widget printStudetsData(BuildContext context, columnStudentsUsersRecord, current
                   size: 30,
                 ),
                 onPressed: () async {
-
                   await columnStudentsUsersRecord.reference.delete();
                   final parentsUsersUpdateData = {
                     'studentLinks':

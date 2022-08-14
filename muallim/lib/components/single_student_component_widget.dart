@@ -107,20 +107,20 @@ class _SingleStudentComponentWidgetState
                           );
                         },
                       ),
-                      MuallimIconButton(
-                        borderColor: Colors.transparent,
-                        borderRadius: 25,
-                        borderWidth: 1,
-                        buttonSize: 50,
-                        icon: Icon(
-                          Icons.delete_sharp,
-                          color: MuallimTheme.of(context).primaryText,
-                          size: 25,
-                        ),
-                        onPressed: () async {
-                          await widget.studentDoc.reference.delete();
-                        },
-                      ),
+                      // MuallimIconButton(
+                      //   borderColor: Colors.transparent,
+                      //   borderRadius: 25,
+                      //   borderWidth: 1,
+                      //   buttonSize: 50,
+                      //   icon: Icon(
+                      //     Icons.delete_sharp,
+                      //     color: MuallimTheme.of(context).primaryText,
+                      //     size: 25,
+                      //   ),
+                      //   onPressed: () async {
+                      //     // await widget.studentDoc.reference.delete();
+                      //   },
+                      // ),
                     ],
                   ),
                 ],
