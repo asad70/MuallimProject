@@ -36,6 +36,12 @@ class _StudentRegistrationWidgetState extends State<StudentRegistrationWidget> {
   String currentFamClickedName = "";
 
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+  }
+
+  @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;

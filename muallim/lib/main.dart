@@ -46,7 +46,7 @@ class _MyAppState extends State<MyApp> {
       ..listen((user) => initialUser ?? setState(() => initialUser = user));
     Future.delayed(
       Duration(seconds: 1),
-      () => setState(() => displaySplashImage = false),
+          () => setState(() => displaySplashImage = false),
     );
   }
 
@@ -59,8 +59,8 @@ class _MyAppState extends State<MyApp> {
 
   void setLocale(Locale value) => setState(() => _locale = value);
   void setThemeMode(ThemeMode mode) => setState(() {
-        _themeMode = mode;
-      });
+    _themeMode = mode;
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -78,18 +78,18 @@ class _MyAppState extends State<MyApp> {
       themeMode: _themeMode,
       home: initialUser == null || displaySplashImage
           ? Center(
-              child: SizedBox(
-                width: 50,
-                height: 50,
-                child: SpinKitThreeBounce(
-                  color: MuallimTheme.of(context).secondaryText,
-                  size: 50,
-                ),
-              ),
-            )
+        child: SizedBox(
+          width: 50,
+          height: 50,
+          child: SpinKitThreeBounce(
+            color: MuallimTheme.of(context).secondaryText,
+            size: 50,
+          ),
+        ),
+      )
           : currentUser.loggedIn
-              ? AdminHomeWidget()
-              : HomePageWidget(),
+          ? AdminHomeWidget()
+          : HomePageWidget(),
 
       // routing is done here
       // initialRoute: '',

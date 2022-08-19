@@ -14,7 +14,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LoginPageWidget extends StatefulWidget {
-  LoginPageWidget({
+  const LoginPageWidget({
     Key key,
     this.userType,
   }) : super(key: key);

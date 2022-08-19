@@ -27,6 +27,8 @@ class _StudentHomeWidgetState extends State<StudentHomeWidget> {
         MWAppState().loggedUser,
       );
     });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
