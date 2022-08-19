@@ -1,18 +1,15 @@
-import '../admin_pages/admin_home_widget.dart';
 import '../auth/auth_util.dart';
 import '../components/nav_bar_comp_widget.dart';
 import '../muallim/muallim_theme.dart';
 import '../muallim/muallim_util.dart';
 import '../muallim/muallim_widgets.dart';
 import '../muallim/nav/nav.dart';
-import '../student_pages/student_home_widget.dart';
-import '../teacher_pages/teacher_home_widget.dart';
 import '../customized_actions/actions/index.dart' as actions;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
+
+
+import '../widgets/common_widgets.dart';
 
 class LoginPageWidget extends StatefulWidget {
   const LoginPageWidget({
@@ -213,6 +210,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
       child: ButtonWidget(
         onPressed: () async {
           // admin login
+          GoRouter.of(context).prepareAuthEvent();
           final user = await signInWithEmail(
             context,
             emailController.text,
@@ -221,13 +219,18 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
           if (user == null) {
             return;
           }
-          await Future.delayed(
-              const Duration(milliseconds: 1000));
+
+          while (currentUserDocument?.accountType == null) {
+            await Future.delayed(const Duration(milliseconds: 1));
+          }
+
           if (valueOrDefault(
-              currentUserDocument.accountType, '') ==
+              currentUserDocument?.accountType,
+              '') ==
               'admin') {
-            context.goNamed(
+            context.goNamedAuth(
               'adminHome',
+              mounted,
               extra: <String, dynamic>{
                 kTransitionInfoKey: TransitionInfo(
                   hasTransition: true,
@@ -237,10 +240,12 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
               },
             );
           } else if (valueOrDefault(
-              currentUserDocument.accountType, '') ==
+              currentUserDocument?.accountType,
+              '') ==
               'teacher') {
-            context.goNamed(
+            context.goNamedAuth(
               'teacherHome',
+              mounted,
               extra: <String, dynamic>{
                 kTransitionInfoKey: TransitionInfo(
                   hasTransition: true,

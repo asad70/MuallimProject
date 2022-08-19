@@ -2,6 +2,7 @@ import 'package:muallim/components/student_nav_bar_widget.dart';
 
 import '../admin_pages/admin_home_widget.dart';
 import '../auth/auth_util.dart';
+import '../auth/firebase_user_provider.dart';
 import '../muallim/muallim_theme.dart';
 import '../muallim/muallim_util.dart';
 import '../muallim/muallim_widgets.dart';

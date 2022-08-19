@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:muallim/muallim/muallim_theme.dart';
+import 'package:go_router/go_router.dart';
 import 'package:page_transition/page_transition.dart';
 import '../../admin_pages/student_registration_widget.dart';
 import '../../backend/backend.dart';
@@ -10,7 +10,8 @@ import '../../auth/firebase_user_provider.dart';
 
 import '../../index.dart';
 import '../../main.dart';
-import 'nav.dart';
+import '../muallim_theme.dart';
+import 'serialization_util.dart';
 
 export 'package:go_router/go_router.dart';
 export 'serialization_util.dart';
@@ -31,8 +32,8 @@ class AppStateNotifier extends ChangeNotifier {
   bool notifyOnAuthChange = true;
 
   bool get loading => user == null || showSplashImage;
-  bool get loggedIn => user.loggedIn ?? false;
-  bool get initiallyLoggedIn => initialUser.loggedIn ?? false;
+  bool get loggedIn => user?.loggedIn ?? false;
+  bool get initiallyLoggedIn => initialUser?.loggedIn ?? false;
   bool get shouldRedirect => loggedIn && _redirectLocation != null;
 
   String getRedirectLocation() => _redirectLocation;
@@ -89,6 +90,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             userType: params.getParam('userType', ParamType.String),
           ),
         ),
+
         MWRoute(
           name: 'studentHome',
           path: 'studentHome',
@@ -111,7 +113,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         MWRoute(
           name: 'teacherHome',
           path: 'teacherHome',
-          requireAuth: true,
           builder: (context, params) => TeacherHomeWidget(),
         ),
         MWRoute(

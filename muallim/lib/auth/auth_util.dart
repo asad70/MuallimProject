@@ -33,11 +33,11 @@ Future signOut() {
 
 Future deleteUser(BuildContext context) async {
   try {
-    if (currentUser.user == null) {
+    if (currentUser?.user == null) {
       print('Error: delete user attempted with no logged in user!');
       return;
     }
-    await currentUser.user.delete();
+    await currentUser?.user?.delete();
   } on FirebaseAuthException catch (e) {
     if (e.code == 'requires-recent-login') {
       ScaffoldMessenger.of(context).hideCurrentSnackBar();
@@ -66,35 +66,35 @@ Future resetPassword({String email, BuildContext context}) async {
 }
 
 Future sendEmailVerification() async =>
-    currentUser.user.sendEmailVerification();
+    currentUser?.user?.sendEmailVerification();
 
 String _currentJwtToken = '';
 
 String get currentUserEmail =>
-    currentUserDocument.email ?? currentUser.user.email ?? '';
+    currentUserDocument?.email ?? currentUser?.user?.email ?? '';
 
-String get currentUserUid => currentUser.user.uid ?? '';
+String get currentUserUid => currentUser?.user?.uid ?? '';
 
 String get currentUserDisplayName =>
-    currentUserDocument.displayName ?? currentUser.user.displayName ?? '';
+    currentUserDocument?.displayName ?? currentUser?.user?.displayName ?? '';
 
 String get currentUserPhoto =>
-    currentUserDocument.photoUrl ?? currentUser.user.photoURL ?? '';
+    currentUserDocument?.photoUrl ?? currentUser?.user?.photoURL ?? '';
 
 String get currentPhoneNumber =>
-    currentUserDocument.phoneNumber ?? currentUser.user.phoneNumber ?? '';
+    currentUserDocument?.phoneNumber ?? currentUser?.user?.phoneNumber ?? '';
 
 String get currentJwtToken => _currentJwtToken ?? '';
 
 bool get currentUserEmailVerified {
   // Reloads the user when checking in order to get the most up to date
   // email verified status.
-  if (currentUser.user != null && !currentUser.user.emailVerified) {
+  if (currentUser?.user != null && !currentUser.user.emailVerified) {
     currentUser.user
         .reload()
         .then((_) => currentUser.user = FirebaseAuth.instance.currentUser);
   }
-  return currentUser.user.emailVerified ?? false;
+  return currentUser?.user?.emailVerified ?? false;
 }
 
 // Set when using phone verification (after phone number is provided).
@@ -109,7 +109,7 @@ Future beginPhoneAuth({
 }) async {
   if (kIsWeb) {
     _webPhoneAuthConfirmationResult =
-        await FirebaseAuth.instance.signInWithPhoneNumber(phoneNumber);
+    await FirebaseAuth.instance.signInWithPhoneNumber(phoneNumber);
     onCodeSent();
     return;
   }
@@ -156,12 +156,12 @@ Future verifySmsCode({
         verificationId: _phoneAuthVerificationCode, smsCode: smsCode);
     return signInOrCreateAccount(
       context,
-      () => FirebaseAuth.instance.signInWithCredential(authCredential),
+          () => FirebaseAuth.instance.signInWithCredential(authCredential),
     );
   }
 }
 
-DocumentReference get currentUserReference => currentUser.user != null
+DocumentReference get currentUserReference => currentUser?.user != null
     ? UsersRecord.collection.doc(currentUser.user.uid)
     : null;
 
@@ -169,18 +169,18 @@ UsersRecord currentUserDocument;
 final authenticatedUserStream = FirebaseAuth.instance
     .authStateChanges()
     .map<String>((user) {
-      // Store jwt token on user update.
+  // Store jwt token on user update.
       () async {
-        _currentJwtToken = await user.getIdToken();
-      }();
-      return user.uid ?? '';
-    })
+    _currentJwtToken = await user?.getIdToken();
+  }();
+  return user?.uid ?? '';
+})
     .switchMap(
       (uid) => uid.isEmpty
-          ? Stream.value(null)
-          : UsersRecord.getDocument(UsersRecord.collection.doc(uid))
-              .handleError((_) {}),
-    )
+      ? Stream.value(null)
+      : UsersRecord.getDocument(UsersRecord.collection.doc(uid))
+      .handleError((_) {}),
+)
     .map((user) => currentUserDocument = user)
     .asBroadcastStream();
 
@@ -191,7 +191,7 @@ class AuthUserStreamWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => StreamBuilder(
-        stream: authenticatedUserStream,
-        builder: (context, _) => child,
-      );
+    stream: authenticatedUserStream,
+    builder: (context, _) => child,
+  );
 }

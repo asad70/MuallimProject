@@ -8,11 +8,11 @@ class MuallimFirebaseUser {
 }
 
 MuallimFirebaseUser currentUser;
-bool get loggedIn => currentUser.loggedIn ?? false;
+bool get loggedIn => currentUser?.loggedIn ?? false;
 Stream<MuallimFirebaseUser> muallimFirebaseUserStream() => FirebaseAuth.instance
     .authStateChanges()
     .debounce((user) => user == null && !loggedIn
-        ? TimerStream(true, const Duration(seconds: 1))
-        : Stream.value(user))
+    ? TimerStream(true, const Duration(seconds: 1))
+    : Stream.value(user))
     .map<MuallimFirebaseUser>(
         (user) => currentUser = MuallimFirebaseUser(user));
