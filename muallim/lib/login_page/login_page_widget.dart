@@ -222,34 +222,32 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
             return;
           }
           await Future.delayed(
-              const Duration(milliseconds: 300));
+              const Duration(milliseconds: 1000));
           if (valueOrDefault(
               currentUserDocument.accountType, '') ==
               'admin') {
-            await Navigator.pushAndRemoveUntil(
-              context,
-              PageTransition(
-                type: PageTransitionType.fade,
-                duration: Duration(milliseconds: 200),
-                reverseDuration:
-                Duration(milliseconds: 300),
-                child: AdminHomeWidget(),
-              ),
-                  (r) => false,
+            context.goNamed(
+              'adminHome',
+              extra: <String, dynamic>{
+                kTransitionInfoKey: TransitionInfo(
+                  hasTransition: true,
+                  transitionType:
+                  PageTransitionType.fade,
+                ),
+              },
             );
           } else if (valueOrDefault(
-              currentUserDocument?.accountType, '') ==
+              currentUserDocument.accountType, '') ==
               'teacher') {
-            await Navigator.pushAndRemoveUntil(
-              context,
-              PageTransition(
-                type: PageTransitionType.fade,
-                duration: Duration(milliseconds: 300),
-                reverseDuration:
-                Duration(milliseconds: 300),
-                child: TeacherHomeWidget(),
-              ),
-                  (r) => false,
+            context.goNamed(
+              'teacherHome',
+              extra: <String, dynamic>{
+                kTransitionInfoKey: TransitionInfo(
+                  hasTransition: true,
+                  transitionType:
+                  PageTransitionType.fade,
+                ),
+              },
             );
           }
         },
@@ -353,70 +351,4 @@ class LoginValidity extends StatelessWidget {
   }
 }
 
-class AdminUser extends StatelessWidget {
-  const AdminUser({Key key, this.email, this.password}) : super(key: key);
-  final String email;
-  final String password;
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(5, 0, 5, 10),
-      child: ButtonWidget(
-        onPressed: () async {
-          // admin login
-          final user = await signInWithEmail(
-            context,
-            email,
-            password,
-          );
-          if (user == null) {
-            return;
-          }
-          await Future.delayed(const Duration(milliseconds: 300));
-          if (valueOrDefault(currentUserDocument?.accountType, '') == 'admin') {
-            context.goNamed(
-              'adminHome',
-              extra: <String, dynamic>{
-                kTransitionInfoKey: TransitionInfo(
-                  hasTransition: true,
-                  transitionType:
-                  PageTransitionType.fade,
-                ),
-              },
-            );
-          } else if (valueOrDefault(currentUserDocument?.accountType, '') ==
-              'teacher') {
-            context.goNamed(
-              'teacherHome',
-              extra: <String, dynamic>{
-                kTransitionInfoKey: TransitionInfo(
-                  hasTransition: true,
-                  transitionType:
-                  PageTransitionType.fade,
-                ),
-              },
-            );
-          }
-        },
-        text: 'Login',
-        icon: Icon(
-          Icons.login_sharp,
-          color: MuallimTheme.of(context).primaryText,
-          size: 15,
-        ),
-        options: ButtonOptions(
-          width: double.infinity,
-          height: 50,
-          color: MuallimTheme.of(context).alternate,
-          textStyle: MuallimTheme.of(context).subtitle1,
-          elevation: 5,
-          borderSide: BorderSide(
-            color: MuallimTheme.of(context).primaryText,
-            width: 1,
-          ),
-          borderRadius: BorderRadius.circular(5),
-        ),
-      ),
-    );
-  }
-}
+

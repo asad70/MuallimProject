@@ -222,7 +222,7 @@ Future<FirestorePage<T>> queryCollectionPage<T>(
       .where((d) => d != null)
       .toList();
   final data = getDocs(docSnapshot);
-  final dataStream = docSnapshotStream?.map(getDocs);
+  final dataStream = docSnapshotStream.map(getDocs);
   final nextPageToken = docSnapshot.docs.isEmpty ? null : docSnapshot.docs.last;
   return FirestorePage(data, dataStream, nextPageToken);
 }

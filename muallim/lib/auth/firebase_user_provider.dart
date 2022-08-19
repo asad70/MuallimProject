@@ -8,7 +8,7 @@ class MuallimFirebaseUser {
 }
 
 MuallimFirebaseUser currentUser;
-bool get loggedIn => currentUser?.loggedIn ?? false;
+bool get loggedIn => currentUser.loggedIn ?? false;
 Stream<MuallimFirebaseUser> muallimFirebaseUserStream() => FirebaseAuth.instance
     .authStateChanges()
     .debounce((user) => user == null && !loggedIn

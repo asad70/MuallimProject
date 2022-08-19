@@ -66,35 +66,35 @@ Future resetPassword({String email, BuildContext context}) async {
 }
 
 Future sendEmailVerification() async =>
-    currentUser?.user?.sendEmailVerification();
+    currentUser.user.sendEmailVerification();
 
 String _currentJwtToken = '';
 
 String get currentUserEmail =>
-    currentUserDocument?.email ?? currentUser?.user?.email ?? '';
+    currentUserDocument.email ?? currentUser.user.email ?? '';
 
-String get currentUserUid => currentUser?.user?.uid ?? '';
+String get currentUserUid => currentUser.user.uid ?? '';
 
 String get currentUserDisplayName =>
-    currentUserDocument?.displayName ?? currentUser?.user?.displayName ?? '';
+    currentUserDocument.displayName ?? currentUser.user.displayName ?? '';
 
 String get currentUserPhoto =>
-    currentUserDocument?.photoUrl ?? currentUser?.user?.photoURL ?? '';
+    currentUserDocument.photoUrl ?? currentUser.user.photoURL ?? '';
 
 String get currentPhoneNumber =>
-    currentUserDocument?.phoneNumber ?? currentUser?.user?.phoneNumber ?? '';
+    currentUserDocument.phoneNumber ?? currentUser.user.phoneNumber ?? '';
 
 String get currentJwtToken => _currentJwtToken ?? '';
 
 bool get currentUserEmailVerified {
   // Reloads the user when checking in order to get the most up to date
   // email verified status.
-  if (currentUser?.user != null && !currentUser.user.emailVerified) {
+  if (currentUser.user != null && !currentUser.user.emailVerified) {
     currentUser.user
         .reload()
         .then((_) => currentUser.user = FirebaseAuth.instance.currentUser);
   }
-  return currentUser?.user?.emailVerified ?? false;
+  return currentUser.user.emailVerified ?? false;
 }
 
 // Set when using phone verification (after phone number is provided).
@@ -161,7 +161,7 @@ Future verifySmsCode({
   }
 }
 
-DocumentReference get currentUserReference => currentUser?.user != null
+DocumentReference get currentUserReference => currentUser.user != null
     ? UsersRecord.collection.doc(currentUser.user.uid)
     : null;
 
@@ -171,9 +171,9 @@ final authenticatedUserStream = FirebaseAuth.instance
     .map<String>((user) {
       // Store jwt token on user update.
       () async {
-        _currentJwtToken = await user?.getIdToken();
+        _currentJwtToken = await user.getIdToken();
       }();
-      return user?.uid ?? '';
+      return user.uid ?? '';
     })
     .switchMap(
       (uid) => uid.isEmpty

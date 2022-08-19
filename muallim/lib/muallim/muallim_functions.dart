@@ -18,9 +18,9 @@ String getArabicVerion(String ascii) {
   if (temp != null && temp.length > 0 && temp[temp.length - 1] == ";") {
     temp = temp.substring(0, temp.length - 1);
   }
-  String maped = temp?.split(';')?.map((charCode) {
+  String maped = temp.split(';').map((charCode) {
     return String.fromCharCode(int.parse(charCode.replaceAll('&#', '')));
-  })?.join('');
+  }).join('');
 
   return maped;
 }

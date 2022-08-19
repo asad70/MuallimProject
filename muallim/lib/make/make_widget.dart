@@ -312,8 +312,8 @@ class _MakeWidgetState extends State<MakeWidget> {
             padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
             child: ButtonWidget(
               onPressed: () async {
-                if (passwordController?.text !=
-                    confirmPasswordController?.text) {
+                if (passwordController.text !=
+                    confirmPasswordController.text) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(

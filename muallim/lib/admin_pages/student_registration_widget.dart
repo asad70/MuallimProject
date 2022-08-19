@@ -103,8 +103,8 @@ class _StudentRegistrationWidgetState extends State<StudentRegistrationWidget> {
                                         child: Builder(
                                           builder: (context) {
                                             final familiesLinked =
-                                                (currentUserDocument?.families
-                                                    ?.toList() ?? [])
+                                                (currentUserDocument.families
+                                                    .toList() ?? [])
                                                     .toList();
 
                                             return ListView.builder(

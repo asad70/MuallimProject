@@ -132,7 +132,7 @@ T safeGet<T>(T Function() func, [Function(dynamic) reportError]) {
   try {
     return func();
   } catch (e) {
-    reportError?.call(e);
+    reportError.call(e);
   }
   return null;
 }

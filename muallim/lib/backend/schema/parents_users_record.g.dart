@@ -327,7 +327,7 @@ class ParentsUsersRecordBuilder
       _adminLink = $v.adminLink;
       _address = $v.address;
       _relationshipToStd = $v.relationshipToStd;
-      _studentLinks = $v.studentLinks?.toBuilder();
+      _studentLinks = $v.studentLinks.toBuilder();
       _reference = $v.reference;
       _$v = null;
     }
@@ -361,13 +361,13 @@ class ParentsUsersRecordBuilder
               adminLink: adminLink,
               address: address,
               relationshipToStd: relationshipToStd,
-              studentLinks: _studentLinks?.build(),
+              studentLinks: _studentLinks.build(),
               reference: reference);
     } catch (_) {
       String _$failedField;
       try {
         _$failedField = 'studentLinks';
-        _studentLinks?.build();
+        _studentLinks.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'ParentsUsersRecord', _$failedField, e.toString());

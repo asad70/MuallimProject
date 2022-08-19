@@ -293,7 +293,7 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
       _createdTime = $v.createdTime;
       _phoneNumber = $v.phoneNumber;
       _accountType = $v.accountType;
-      _families = $v.families?.toBuilder();
+      _families = $v.families.toBuilder();
       _reference = $v.reference;
       _$v = null;
     }
@@ -326,13 +326,13 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
               createdTime: createdTime,
               phoneNumber: phoneNumber,
               accountType: accountType,
-              families: _families?.build(),
+              families: _families.build(),
               reference: reference);
     } catch (_) {
       String _$failedField;
       try {
         _$failedField = 'families';
-        _families?.build();
+        _families.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'UsersRecord', _$failedField, e.toString());
