@@ -2,6 +2,7 @@ import '../muallim/muallim_theme.dart';
 import '../muallim/muallim_util.dart';
 import '../muallim/muallim_widgets.dart';
 import '../home_page/home_page_widget.dart';
+import '../muallim/nav/nav.dart';
 import '../student_pages/student_home_widget.dart';
 import '../student_pages/student_naazirah_widget.dart';
 import '../student_pages/student_qaaidah_widget.dart';
@@ -25,6 +26,12 @@ class StudentNavBarWidget extends StatefulWidget {
 }
 
 class _StudentNavBarWidgetState extends State<StudentNavBarWidget> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -63,15 +70,14 @@ class _StudentNavBarWidgetState extends State<StudentNavBarWidget> {
                   padding: EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
                   child: ButtonWidget(
                     onPressed: () async {
-                      await Navigator.pushAndRemoveUntil(
-                        context,
-                        PageTransition(
-                          type: PageTransitionType.fade,
-                          duration: Duration(milliseconds: 300),
-                          reverseDuration: Duration(milliseconds: 300),
-                          child: HomePageWidget(),
-                        ),
-                        (r) => false,
+                      context.goNamed(
+                        'HomePage',
+                        extra: <String, dynamic>{
+                          kTransitionInfoKey: TransitionInfo(
+                            hasTransition: true,
+                            transitionType: PageTransitionType.fade,
+                          ),
+                        },
                       );
                       setState(() => MWAppState().loggedUser = '');
 
@@ -103,10 +109,10 @@ class _StudentNavBarWidgetState extends State<StudentNavBarWidget> {
         Row(
           mainAxisSize: MainAxisSize.max,
           children: [
-            navBarItemWidget(context, 'Home', 'home', widget.currentPage, StudentHomeWidget()),
-            navBarItemWidget(context, 'Qaaidah', 'qaaidah', widget.currentPage, StudentQaaidahWidget()),
-            navBarItemWidget(context, 'Naazirah', 'naazirah', widget.currentPage, StudentNaazirahWidget()),
-            navBarItemWidget(context, 'Hifz', 'hifz', widget.currentPage, StudentNaazirahWidget()),
+            navBarItemWidget(context, 'Home', 'home', widget.currentPage, 'studentHome'),
+            navBarItemWidget(context, 'Qaaidah', 'qaaidah', widget.currentPage, 'studentQaaidah'),
+            navBarItemWidget(context, 'Naazirah', 'naazirah', widget.currentPage, 'studentNaazirah'),
+            navBarItemWidget(context, 'Hifz', 'hifz', widget.currentPage, 'studentNaazirah'),
           ],
         ),
       ],

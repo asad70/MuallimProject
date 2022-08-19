@@ -31,8 +31,8 @@ class AppStateNotifier extends ChangeNotifier {
   bool notifyOnAuthChange = true;
 
   bool get loading => user == null || showSplashImage;
-  bool get loggedIn => user?.loggedIn ?? false;
-  bool get initiallyLoggedIn => initialUser?.loggedIn ?? false;
+  bool get loggedIn => user.loggedIn ?? false;
+  bool get initiallyLoggedIn => initialUser.loggedIn ?? false;
   bool get shouldRedirect => loggedIn && _redirectLocation != null;
 
   String getRedirectLocation() => _redirectLocation;
@@ -111,6 +111,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         MWRoute(
           name: 'teacherHome',
           path: 'teacherHome',
+          requireAuth: true,
           builder: (context, params) => TeacherHomeWidget(),
         ),
         MWRoute(

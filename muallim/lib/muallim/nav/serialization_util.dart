@@ -44,7 +44,7 @@ String serializeParam(dynamic param, ParamType paramType) {
         return dateTimeRangeToString(param as DateTimeRange);
       case ParamType.LatLng:
         return (param as LatLng).serialize();
-      case ParamType.FFPlace:
+      case ParamType.MWPlace:
         return placeToString(param as MWPlace);
       case ParamType.JSON:
         return json.encode(param);
@@ -120,7 +120,7 @@ enum ParamType {
   DateTime,
   DateTimeRange,
   LatLng,
-  FFPlace,
+  MWPlace,
   JSON,
   Document,
   DocumentReference,
@@ -153,7 +153,7 @@ dynamic deserializeParam(
         return dateTimeRangeFromString(param);
       case ParamType.LatLng:
         return latLngFromString(param);
-      case ParamType.FFPlace:
+      case ParamType.MWPlace:
         return placeFromString(param);
       case ParamType.JSON:
         return json.decode(param);

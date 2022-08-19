@@ -14,6 +14,11 @@ class ColorLegendWidget extends StatefulWidget {
 
 class _ColorLegendWidgetState extends State<ColorLegendWidget> {
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+  }
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),

@@ -168,7 +168,7 @@ extension StringDocRef on String {
 }
 
 void setAppLanguage(BuildContext context, String language) =>
-    MyApp.of(context).setLocale(Locale(language, ''));
+    MyApp.of(context).setLocale(language);
 
 void setDarkModeSetting(BuildContext context, ThemeMode themeMode) =>
     MyApp.of(context).setThemeMode(themeMode);
@@ -203,7 +203,7 @@ void showSnackbar(
   );
 }
 
-extension FFStringExt on String {
+extension MWStringExt on String {
   String maybeHandleOverflow({int maxChars, String replacement = ''}) =>
       maxChars != null && length > maxChars
           ? replaceRange(maxChars, null, replacement)

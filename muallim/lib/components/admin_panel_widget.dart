@@ -14,10 +14,14 @@ class AdminPanelWidget extends StatefulWidget {
   @override
   _AdminPanelWidgetState createState() => _AdminPanelWidgetState();
 }
-  DocumentReference currentFamClicked;
-
 
 class _AdminPanelWidgetState extends State<AdminPanelWidget> {
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+  }
   @override
   Widget build(BuildContext context) {
     return Card(

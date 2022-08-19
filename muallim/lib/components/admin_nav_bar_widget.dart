@@ -12,6 +12,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../admin_pages/student_registration_widget.dart';
+import '../muallim/nav/nav.dart';
 import '../student_pages/student_home_widget.dart';
 import '../widgets/common_widgets.dart';
 
@@ -28,6 +29,13 @@ class AdminNavBarWidget extends StatefulWidget {
 }
 
 class _AdminNavBarWidgetState extends State<AdminNavBarWidget> {
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -68,16 +76,17 @@ class _AdminNavBarWidgetState extends State<AdminNavBarWidget> {
                   padding: EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
                   child: ButtonWidget(
                     onPressed: () async {
+                      GoRouter.of(context).prepareAuthEvent();
                       await signOut();
-                      await Navigator.pushAndRemoveUntil(
-                        context,
-                        PageTransition(
-                          type: PageTransitionType.fade,
-                          duration: Duration(milliseconds: 300),
-                          reverseDuration: Duration(milliseconds: 300),
-                          child: HomePageWidget(),
-                        ),
-                        (r) => false,
+                      context.goNamedAuth(
+                        'HomePage',
+                        mounted,
+                        extra: <String, dynamic>{
+                          kTransitionInfoKey: TransitionInfo(
+                            hasTransition: true,
+                            transitionType: PageTransitionType.fade,
+                          ),
+                        },
                       );
                       setState(() => MWAppState().loggedUser = '');
                     },
@@ -108,10 +117,10 @@ class _AdminNavBarWidgetState extends State<AdminNavBarWidget> {
         Row(
           mainAxisSize: MainAxisSize.max,
           children: [
-            navBarItemWidget(context, 'Home', 'home', widget.currentPage, AdminHomeWidget()),
-            navBarItemWidget(context, 'Student Registration', 'registration', widget.currentPage, StudentRegistrationWidget()),
-            navBarItemWidget(context, 'Home', 'home', widget.currentPage, AdminHomeWidget()),
-            navBarItemWidget(context, 'Home', 'home', widget.currentPage, AdminHomeWidget()),
+            navBarItemWidget(context, 'Home', 'home', widget.currentPage, 'adminHome'),
+            navBarItemWidget(context, 'Student Registration', 'registration', widget.currentPage, 'studentRegistration'),
+            navBarItemWidget(context, 'Home', 'home', widget.currentPage, 'adminHome'),
+            navBarItemWidget(context, 'Home', 'home', widget.currentPage, 'adminHome'),
           ],
         ),
       ],

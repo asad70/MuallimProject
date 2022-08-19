@@ -43,6 +43,8 @@ class _UpdateStudentComponentWidgetState
         TextEditingController(text: widget.studentDoc.lastName);
     passwordController =
         TextEditingController(text: widget.studentDoc.password);
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+
   }
 
   @override

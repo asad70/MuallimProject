@@ -9,6 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../muallim/muallim_theme.dart';
 import '../muallim/muallim_util.dart';
 import '../muallim/muallim_widgets.dart';
+import '../muallim/nav/nav.dart';
 
 class NavBarCompWidget extends StatefulWidget {
   const NavBarCompWidget({Key key}) : super(key: key);
@@ -18,6 +19,12 @@ class NavBarCompWidget extends StatefulWidget {
 }
 
 class _NavBarCompWidgetState extends State<NavBarCompWidget> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -30,14 +37,14 @@ class _NavBarCompWidgetState extends State<NavBarCompWidget> {
             flex: 2,
             child: InkWell(
               onTap: () async {
-                await Navigator.push(
-                  context,
-                  PageTransition(
-                    type: PageTransitionType.fade,
-                    duration: Duration(milliseconds: 300),
-                    reverseDuration: Duration(milliseconds: 300),
-                    child: HomePageWidget(),
-                  ),
+                context.pushNamed(
+                  'HomePage',
+                  extra: <String, dynamic>{
+                    kTransitionInfoKey: TransitionInfo(
+                      hasTransition: true,
+                      transitionType: PageTransitionType.fade,
+                    ),
+                  },
                 );
               },
               child: AutoSizeText(
@@ -59,16 +66,18 @@ class _NavBarCompWidgetState extends State<NavBarCompWidget> {
                   flex: 2,
                   child: ButtonWidget(
                     onPressed: () async {
-                      await Navigator.push(
-                        context,
-                        PageTransition(
-                          type: PageTransitionType.fade,
-                          duration: Duration(milliseconds: 300),
-                          reverseDuration: Duration(milliseconds: 300),
-                          child: LoginPageWidget(
-                            userType: 'Student',
+                      context.pushNamed(
+                        'loginPage',
+                        queryParams: {
+                          'userType':
+                          serializeParam('Student', ParamType.String),
+                        }.withoutNulls,
+                        extra: <String, dynamic>{
+                          kTransitionInfoKey: TransitionInfo(
+                            hasTransition: true,
+                            transitionType: PageTransitionType.fade,
                           ),
-                        ),
+                        },
                       );
                     },
                     text: 'Student Login',
@@ -97,16 +106,18 @@ class _NavBarCompWidgetState extends State<NavBarCompWidget> {
                     padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
                     child: ButtonWidget(
                       onPressed: () async {
-                        await Navigator.push(
-                          context,
-                          PageTransition(
-                            type: PageTransitionType.fade,
-                            duration: Duration(milliseconds: 300),
-                            reverseDuration: Duration(milliseconds: 300),
-                            child: LoginPageWidget(
-                              userType: 'Admin',
+                        context.pushNamed(
+                          'loginPage',
+                          queryParams: {
+                            'userType':
+                            serializeParam('Admin', ParamType.String),
+                          }.withoutNulls,
+                          extra: <String, dynamic>{
+                            kTransitionInfoKey: TransitionInfo(
+                              hasTransition: true,
+                              transitionType: PageTransitionType.fade,
                             ),
-                          ),
+                          },
                         );
                       },
                       text: 'Admin/Teacher Login',
@@ -136,16 +147,18 @@ class _NavBarCompWidgetState extends State<NavBarCompWidget> {
                     padding: EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
                     child: ButtonWidget(
                       onPressed: () async {
-                        await Navigator.push(
-                          context,
-                          PageTransition(
-                            type: PageTransitionType.fade,
-                            duration: Duration(milliseconds: 300),
-                            reverseDuration: Duration(milliseconds: 300),
-                            child: LoginPageWidget(
-                              userType: 'Parents',
+                        context.pushNamed(
+                          'loginPage',
+                          queryParams: {
+                            'userType':
+                            serializeParam('Parents', ParamType.String),
+                          }.withoutNulls,
+                          extra: <String, dynamic>{
+                            kTransitionInfoKey: TransitionInfo(
+                              hasTransition: true,
+                              transitionType: PageTransitionType.fade,
                             ),
-                          ),
+                          },
                         );
                       },
                       text: 'Parents Login',

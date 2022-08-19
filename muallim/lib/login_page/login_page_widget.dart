@@ -4,6 +4,7 @@ import '../components/nav_bar_comp_widget.dart';
 import '../muallim/muallim_theme.dart';
 import '../muallim/muallim_util.dart';
 import '../muallim/muallim_widgets.dart';
+import '../muallim/nav/nav.dart';
 import '../student_pages/student_home_widget.dart';
 import '../teacher_pages/teacher_home_widget.dart';
 import '../customized_actions/actions/index.dart' as actions;
@@ -223,7 +224,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
           await Future.delayed(
               const Duration(milliseconds: 300));
           if (valueOrDefault(
-              currentUserDocument?.accountType, '') ==
+              currentUserDocument.accountType, '') ==
               'admin') {
             await Navigator.pushAndRemoveUntil(
               context,
@@ -292,16 +293,15 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
             if (passwordController.text == userPassword) {
               setState(() => MWAppState().loggedUser =
                   usernameController.text);
-              await Navigator.pushAndRemoveUntil(
-                context,
-                PageTransition(
-                  type: PageTransitionType.fade,
-                  duration: Duration(milliseconds: 300),
-                  reverseDuration:
-                  Duration(milliseconds: 300),
-                  child: StudentHomeWidget(),
-                ),
-                    (r) => false,
+              context.goNamed(
+                'studentHome',
+                extra: <String, dynamic>{
+                  kTransitionInfoKey: TransitionInfo(
+                    hasTransition: true,
+                    transitionType:
+                    PageTransitionType.fade,
+                  ),
+                },
               );
             } else {
               setState(() => invalidPassword = true);
@@ -374,27 +374,27 @@ class AdminUser extends StatelessWidget {
           }
           await Future.delayed(const Duration(milliseconds: 300));
           if (valueOrDefault(currentUserDocument?.accountType, '') == 'admin') {
-            await Navigator.pushAndRemoveUntil(
-              context,
-              PageTransition(
-                type: PageTransitionType.fade,
-                duration: Duration(milliseconds: 200),
-                reverseDuration: Duration(milliseconds: 300),
-                child: AdminHomeWidget(),
-              ),
-              (r) => false,
+            context.goNamed(
+              'adminHome',
+              extra: <String, dynamic>{
+                kTransitionInfoKey: TransitionInfo(
+                  hasTransition: true,
+                  transitionType:
+                  PageTransitionType.fade,
+                ),
+              },
             );
           } else if (valueOrDefault(currentUserDocument?.accountType, '') ==
               'teacher') {
-            await Navigator.pushAndRemoveUntil(
-              context,
-              PageTransition(
-                type: PageTransitionType.fade,
-                duration: Duration(milliseconds: 300),
-                reverseDuration: Duration(milliseconds: 300),
-                child: TeacherHomeWidget(),
-              ),
-              (r) => false,
+            context.goNamed(
+              'teacherHome',
+              extra: <String, dynamic>{
+                kTransitionInfoKey: TransitionInfo(
+                  hasTransition: true,
+                  transitionType:
+                  PageTransitionType.fade,
+                ),
+              },
             );
           }
         },

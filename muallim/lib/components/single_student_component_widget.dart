@@ -23,6 +23,12 @@ class SingleStudentComponentWidget extends StatefulWidget {
 class _SingleStudentComponentWidgetState
     extends State<SingleStudentComponentWidget> {
   @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+  }
+  @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,

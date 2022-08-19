@@ -10,6 +10,7 @@ import 'muallim/muallim_util.dart';
 import 'muallim/internationalization.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'index.dart';
+import 'muallim/nav/nav.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,7 +22,7 @@ void main() async {
 }
 
 class MyApp extends StatefulWidget {
-  // This widget is the root of application.
+  // This widget is the root of your application.
   @override
   State<MyApp> createState() => _MyAppState();
 
@@ -34,19 +35,22 @@ class _MyAppState extends State<MyApp> {
   ThemeMode _themeMode = ThemeMode.system;
 
   Stream<MuallimFirebaseUser> userStream;
-  MuallimFirebaseUser initialUser;
-  bool displaySplashImage = true;
+
+  AppStateNotifier _appStateNotifier;
+  GoRouter _router;
 
   final authUserSub = authenticatedUserStream.listen((_) {});
 
   @override
   void initState() {
     super.initState();
+    _appStateNotifier = AppStateNotifier();
+    _router = createRouter(_appStateNotifier);
     userStream = muallimFirebaseUserStream()
-      ..listen((user) => initialUser ?? setState(() => initialUser = user));
+      ..listen((user) => _appStateNotifier.update(user));
     Future.delayed(
       Duration(seconds: 1),
-          () => setState(() => displaySplashImage = false),
+          () => _appStateNotifier.stopShowingSplashImage(),
     );
   }
 
@@ -57,14 +61,15 @@ class _MyAppState extends State<MyApp> {
     super.dispose();
   }
 
-  void setLocale(Locale value) => setState(() => _locale = value);
+  void setLocale(String language) =>
+      setState(() => _locale = createLocale(language));
   void setThemeMode(ThemeMode mode) => setState(() {
     _themeMode = mode;
   });
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Muallim',
       localizationsDelegates: [
         MWLocalizationsDelegate(),
@@ -73,37 +78,13 @@ class _MyAppState extends State<MyApp> {
         GlobalCupertinoLocalizations.delegate,
       ],
       locale: _locale,
-      supportedLocales: const [Locale('en', '')],
+      supportedLocales: const [
+        Locale('en'),
+      ],
       theme: ThemeData(brightness: Brightness.light),
       themeMode: _themeMode,
-      home: initialUser == null || displaySplashImage
-          ? Center(
-        child: SizedBox(
-          width: 50,
-          height: 50,
-          child: SpinKitThreeBounce(
-            color: MuallimTheme.of(context).secondaryText,
-            size: 50,
-          ),
-        ),
-      )
-          : currentUser.loggedIn
-          ? AdminHomeWidget()
-          : HomePageWidget(),
-
-      // routing is done here
-      // initialRoute: '',
-      // routes: {
-      //   HomePage.route: (context) => HomePageWidget(),
-      // },
+      routeInformationParser: _router.routeInformationParser,
+      routerDelegate: _router.routerDelegate,
     );
-  }
-}
-class HomePage extends StatelessWidget {
-  static const String route = '';
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
   }
 }

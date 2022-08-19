@@ -25,7 +25,10 @@ class _AdminHomeWidgetState extends State<AdminHomeWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Title(
+        title: 'Admin Home',
+        color: MuallimTheme.of(context).primaryColor,
+    child:  Scaffold(
       key: scaffoldKey,
       backgroundColor: MuallimTheme.of(context).primaryBackground,
       body: SafeArea(
@@ -62,6 +65,6 @@ class _AdminHomeWidgetState extends State<AdminHomeWidget> {
           ),
         ),
       ),
-    );
+    ));
   }
 }

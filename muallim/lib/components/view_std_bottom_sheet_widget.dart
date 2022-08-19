@@ -29,6 +29,8 @@ class _ViewStdBottomSheetWidgetState extends State<ViewStdBottomSheetWidget> {
     super.initState();
     searchFieldController = TextEditingController();
     MWAppState().showFullSearch = true;
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+
   }
 
   @override

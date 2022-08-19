@@ -24,6 +24,12 @@ class QaidahComponentWidget extends StatefulWidget {
 
 class _QaidahComponentWidgetState extends State<QaidahComponentWidget> {
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(

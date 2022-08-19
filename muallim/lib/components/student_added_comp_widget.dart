@@ -30,6 +30,13 @@ class StudentAddedCompWidget extends StatefulWidget {
 
 class _StudentAddedCompWidgetState extends State<StudentAddedCompWidget> {
   @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+  }
+
+  @override
   Widget build(BuildContext context) {
     return ClipRect(
       child: BackdropFilter(

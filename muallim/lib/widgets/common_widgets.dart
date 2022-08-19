@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:go_router/go_router.dart';
 
 import '../muallim/muallim_icon_button.dart';
 import '../muallim/muallim_theme.dart';
@@ -40,15 +41,7 @@ Widget navBarItemWidget(BuildContext context, name, page, currentPage, goTo){
       padding: EdgeInsetsDirectional.fromSTEB(5, 0, 5, 0),
       child: InkWell(
         onTap: () async {
-          await Navigator.push(
-            context,
-            PageTransition(
-              type: PageTransitionType.fade,
-              duration: Duration(milliseconds: 100),
-              reverseDuration: Duration(milliseconds: 100),
-              child: goTo,
-            ),
-          );
+          context.pushNamed(goTo);
         },
         child: Container(
           width: MediaQuery.of(context).size.width * 0.15,
